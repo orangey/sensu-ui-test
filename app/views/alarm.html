@@ -1,0 +1,21 @@
+<p>Search: <input ng-model="query"></p>
+<p>{{ "Alarm count: " + alarmList.length }}</p>
+
+<div class="container-fluid">
+    <div class="row table-bordered">
+        <div class="col-lg-2"><a href="" ng-click="predicate = 'client'; reverse=!reverse">Client</a></div>
+        <div class="col-lg-2"><a href="" ng-click="predicate = 'check'; reverse=!reverse">Check</a></div>
+        <div class="col-lg-1"><a href="" ng-click="predicate = 'status'; reverse=!reverse">Status</a></div>
+        <div class="col-lg-1"><a href="" ng-click="predicate = 'occurrences'; reverse=!reverse">Occurrences</a></div>
+        <div class="col-lg-2"><a href="" ng-click="predicate = 'issued'; reverse=!reverse">Timestamp</a></div>
+        <div class="col-lg-4"><a href="" ng-click="predicate = 'output'; reverse=!reverse">Output</a></div>
+    </div>
+    <div class="row table-bordered" ng-repeat="alarm in alarmList | filter:query | orderBy:predicate:reverse" ng-class="{'alert-success': alarm.status == 0, 'alert-warning': alarm.status == 1, 'alert-danger': alarm.status == 2, 'alert-info': alarm.status > 2}">
+        <div class="col-lg-2">{{alarm.client}}</div>
+        <div class="col-lg-2">{{alarm.check}}</div>
+        <div class="col-lg-1" >{{mapStatus(alarm.status)}}</div>
+        <div class="col-lg-1">{{alarm.occurrences}}</div>
+        <div class="col-lg-2">{{alarm.issued * 1000 | date:'yyyy-MM-dd HH:mm:ss Z'}}</div>
+        <div class="col-lg-4 small">{{alarm.output}}</div>
+    </div>
+</div>
